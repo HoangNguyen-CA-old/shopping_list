@@ -5,16 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems, deleteItem } from '../actions/itemActions';
 
 export default function ShoppingList() {
-  const items = useSelector(state => state.itemReducer.items);
+  const items = useSelector(state => state.item.items);
   const dispatch = useDispatch();
 
+  //Load items from database on component mount
   useEffect(() => {
-    dispatch(getItems());
-  }, []);
-  console.log(items);
+    getItems(dispatch);
+  }, [dispatch]);
+
+  const user = useSelector(state => state.auth);
+  const token = user.token;
 
   return (
-    <Container>
+    <Container className='mt-3'>
       <ListGroup>
         <TransitionGroup className='shopping-list'>
           {items.map(({ _id, name }) => (
@@ -24,7 +27,7 @@ export default function ShoppingList() {
                   className='remove-btn bg-danger'
                   size='sm'
                   onClick={() => {
-                    dispatch(deleteItem(_id));
+                    deleteItem(dispatch, _id, token);
                   }}
                 >
                   &times;

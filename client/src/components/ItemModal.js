@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { Container, Modal, Button, Form, FormGroup } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../actions/itemActions';
 
 export default function ItemModel() {
   let [modal, setModal] = useState(false);
+  const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
 
   let inputRef = useRef();
@@ -17,13 +18,15 @@ export default function ItemModel() {
   };
 
   let handleSubmit = () => {
-    dispatch(addItem({ name: inputRef.current.value }));
+    addItem(dispatch, { name: inputRef.current.value }, token);
     handleClose();
   };
 
   return (
     <Container>
-      <Button onClick={handleShow}>Add Item</Button>
+      <Button onClick={handleShow} className='mt-3'>
+        Add Item
+      </Button>
 
       <Modal show={modal} onHide={handleClose}>
         <Modal.Header closeButton>
