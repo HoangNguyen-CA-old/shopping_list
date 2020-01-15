@@ -63,7 +63,7 @@ export default function LoginModal() {
 
       <Modal show={modal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Log in to an account</Modal.Title>
+          <Modal.Title>Log into an account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {message ? <Alert variant='danger'>{message}</Alert> : ''}

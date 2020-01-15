@@ -6,13 +6,14 @@ import RegisterModal from './auth/RegisterModal';
 import { useSelector } from 'react-redux';
 
 export default function MainNavbar() {
-  const auth = useSelector(state => state.auth);
-  const { isAuthenticated, user } = auth;
+  const user = useSelector(state => state.auth.user);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const isLoading = useSelector(state => state.auth.isLoading);
 
   const authLinks = (
     <>
       <Nav.Item className='navbar-text text-success mr-3'>
-        {user ? `Welcome ${user.name}` : ''}
+        {user ? `Logged in as ${user.name}` : ''}
       </Nav.Item>
       <Logout></Logout>
     </>
@@ -29,8 +30,15 @@ export default function MainNavbar() {
       <Container>
         <Navbar.Brand href=''>Shopping List</Navbar.Brand>
         <Nav className='ml-auto'>
-          {isAuthenticated ? authLinks : guestLinks}
-          <Nav.Item></Nav.Item>
+          {isLoading ? (
+            <Nav.Item className='navbar-text text-warning'>
+              Attempting Login..
+            </Nav.Item>
+          ) : isAuthenticated ? (
+            authLinks
+          ) : (
+            guestLinks
+          )}
         </Nav>
       </Container>
     </Navbar>

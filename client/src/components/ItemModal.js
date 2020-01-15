@@ -1,11 +1,22 @@
 import React, { useState, useRef } from 'react';
-import { Container, Modal, Button, Form, FormGroup } from 'react-bootstrap';
+import {
+  Container,
+  Modal,
+  Button,
+  Form,
+  FormGroup,
+  Alert
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../actions/itemActions';
 
 export default function ItemModel() {
   let [modal, setModal] = useState(false);
-  const token = useSelector(state => state.auth.token);
+
+  const auth = useSelector(state => state.auth);
+  const token = auth.token;
+  const isAuthenticated = auth.isAuthenticated;
+
   const dispatch = useDispatch();
 
   let inputRef = useRef();
@@ -23,10 +34,12 @@ export default function ItemModel() {
   };
 
   return (
-    <Container>
-      <Button onClick={handleShow} className='mt-3'>
-        Add Item
-      </Button>
+    <Container className='mt-3'>
+      {isAuthenticated ? (
+        <Button onClick={handleShow}>Add Item</Button>
+      ) : (
+        <Alert variant='danger'>Please Log In To Edit Shopping List</Alert>
+      )}
 
       <Modal show={modal} onHide={handleClose}>
         <Modal.Header closeButton>
