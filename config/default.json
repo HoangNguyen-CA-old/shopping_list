@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://Hoang:ONbbZpO4AZR9485K@cluster0-wj4ek.mongodb.net/test?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://Hoang:p6YT4rxOmaIiPqjK@cluster0-wj4ek.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "sl_myJwtSecret"
 }
