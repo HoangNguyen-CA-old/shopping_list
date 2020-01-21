@@ -7,7 +7,7 @@ export default function Logout() {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    logout(dispatch);
+    dispatch(logout());
   };
   return (
     <>

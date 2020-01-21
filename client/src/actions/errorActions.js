@@ -12,8 +12,8 @@ export const returnErrors = (msg, status, id = null) => {
   };
 };
 //CLEAR ERRORS
-export const clearErrors = dispatch => {
-  dispatch({
+export const clearErrors = () => {
+  return {
     type: CLEAR_ERRORS
-  });
+  };
 };

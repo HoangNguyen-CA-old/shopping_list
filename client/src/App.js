@@ -5,15 +5,14 @@ import ItemModal from './components/ItemModal';
 
 import Navbar from './components/MainNavbar';
 import { loadUser } from './actions/authActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch();
-  const token = useSelector(state => state.auth.token);
 
   useEffect(() => {
-    loadUser(dispatch, token);
-  }, [dispatch, token]);
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
     <>
       <Navbar></Navbar>

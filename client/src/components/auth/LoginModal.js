@@ -25,11 +25,11 @@ export default function LoginModal() {
   let passwordRef = useRef();
 
   const handleShow = () => {
-    clearErrors(dispatch);
+    dispatch(clearErrors());
     setModal(true);
   };
   const handleClose = useCallback(() => {
-    clearErrors(dispatch);
+    dispatch(clearErrors());
     setModal(false);
   }, [dispatch]);
   const handleSubmit = () => {
@@ -40,7 +40,7 @@ export default function LoginModal() {
       email,
       password
     };
-    login(dispatch, user);
+    dispatch(login(user));
   };
 
   useEffect(() => {

@@ -13,14 +13,14 @@ import { returnErrors } from './errorActions';
 
 //check token and load user
 
-export const loadUser = (dispatch, token) => {
+export const loadUser = () => (dispatch, getState) => {
   //User loading
   dispatch({ type: USER_LOADING });
 
   //Get token from localStorage
 
   axios
-    .get('/api/auth/user', tokenConfig(token))
+    .get('/api/auth/user', tokenConfig(getState))
     .then(res =>
       dispatch({
         type: USER_LOADED,
@@ -36,7 +36,7 @@ export const loadUser = (dispatch, token) => {
 };
 
 //Register User
-export const register = (dispatch, { name, email, password }) => {
+export const register = ({ name, email, password }) => dispatch => {
   //Headers
   const config = {
     headers: {
@@ -64,14 +64,14 @@ export const register = (dispatch, { name, email, password }) => {
     });
 };
 
-export const logout = dispatch => {
-  dispatch({
+export const logout = () => {
+  return {
     type: LOGOUT_SUCCESS
-  });
+  };
 };
 
 //Register User
-export const login = (dispatch, { email, password }) => {
+export const login = ({ email, password }) => dispatch => {
   //Headers
   const config = {
     headers: {
@@ -100,8 +100,9 @@ export const login = (dispatch, { email, password }) => {
 };
 
 //Setup config/headers and token
-export const tokenConfig = token => {
+export const tokenConfig = getState => {
   //Headers
+  const token = getState().auth.token;
   const config = {
     headers: {
       'Content-type': 'application/json'

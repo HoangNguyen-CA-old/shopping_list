@@ -26,11 +26,11 @@ export default function RegisterModal() {
   let passwordRef = useRef();
 
   let handleShow = () => {
-    clearErrors(dispatch);
+    dispatch(clearErrors());
     setModal(true);
   };
   let handleClose = useCallback(() => {
-    clearErrors(dispatch);
+    dispatch(clearErrors());
     setModal(false);
   }, [dispatch]);
 
@@ -43,7 +43,7 @@ export default function RegisterModal() {
       email,
       password
     };
-    register(dispatch, newUser);
+    dispatch(register(newUser));
     //Create new user
     //handleClose();
   };

@@ -14,9 +14,7 @@ export default function ItemModel() {
   let [modal, setModal] = useState(false);
 
   const auth = useSelector(state => state.auth);
-  const token = auth.token;
   const isAuthenticated = auth.isAuthenticated;
-
   const dispatch = useDispatch();
 
   let inputRef = useRef();
@@ -29,7 +27,7 @@ export default function ItemModel() {
   };
 
   let handleSubmit = () => {
-    addItem(dispatch, { name: inputRef.current.value }, token);
+    dispatch(addItem({ name: inputRef.current.value }));
     handleClose();
   };
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
-export const getItems = dispatch => {
+export const getItems = () => dispatch => {
   dispatch(setItemsLoading());
   axios
     .get('/api/items')
@@ -18,9 +18,9 @@ export const getItems = dispatch => {
     );
 };
 
-export const addItem = (dispatch, item, token) => {
+export const addItem = item => (dispatch, getState) => {
   axios
-    .post('/api/items', item, tokenConfig(token))
+    .post('/api/items', item, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: ADD_ITEM,
@@ -32,9 +32,9 @@ export const addItem = (dispatch, item, token) => {
     );
 };
 
-export const deleteItem = (dispatch, id, token) => {
+export const deleteItem = id => (dispatch, getState) => {
   axios
-    .delete(`./api/items/${id}`, tokenConfig(token))
+    .delete(`./api/items/${id}`, tokenConfig(getState))
     .then(res =>
       dispatch({
         type: DELETE_ITEM,
